@@ -1,10 +1,10 @@
-L'URL transactionnelle aussi appelée prefill ou api de paiement permet aux partenaires d'utiliser HelloAsso comme solution de paiement simple.
-Cela nécessite que le partenaire gère de son côté la partie "panier".
+La fonctionnalité checkout (anciennement appelée prefill) permet aux association d'utiliser HelloAsso comme solution de paiement simple.
+Cela nécessite que l'association gère de son côté la partie "panier".
 
-Cette utilisation est réservée aux partenaires ayant pris contact avec notre équipe commerciale, qui se chargera d'initier le setup en interne et de communiquer la documentation.
+Cette utilisation est réservée aux associatons ayant pris contact avec notre équipe commerciale, qui se chargera d'initier le setup en interne et de communiquer la documentation.
 
 # Fonctionnement
-Ce repo contient un site d'exemple PHP permettant de réaliser un paiement via le formulaire prefill puis de revenir sur le site initial.
+Ce repo contient un site d'exemple PHP permettant de réaliser un paiement via le checkout puis de revenir sur le site initial.
 
 La page principale représente un panier prérempli et personnalisable, un formulaire de saisie de coordonnées et un récapitulatif. Il peut être intégré très facilement avec un minimum de personnalisation.
 
@@ -22,11 +22,10 @@ L'arborescence du projet est la suivante:
  ┣ 📂Models
  ┃ ┗ 📜FormViewModel.php       // Transporte les données entre la vue et le contrôleur
  ┣ 📂Services
- ┃ ┗ 📜HelloAssoApiWrapper.php // Récupère le lien vers le formulaire de paiement via l'API HelloAsso
+ ┃ ┗ 📜HelloAssoApiWrapper.php // Authentification et récupèration du lien vers le formulaire de paiement via l'API HelloAsso
  ┣ 📂Views
- ┃ ┣ 📜error.phtml             // Page statique s'affichant en cas d'erreur
  ┃ ┣ 📜form.phtml              // Page principale affichant le panier et le formulaire de coordonnées
- ┃ ┗ 📜success.phtml           // Page statique s'affichant après la validation du paiement
+ ┃ ┗ 📜return.phtml            // Page s'affichant au retour du paiement
  ┣ 📂css
  ┃ ┗ 📜main.css
  ┣ 📂images
@@ -44,10 +43,11 @@ L'arborescence du projet est la suivante:
 # Configuration
 L'ensemble de la configuration se fait dans le fichier `Config.php`.
 ```c 
-public $partnerId = "";                               // Votre id partenaire (fournit par HelloAsso)
-public $formUrl = "";                                 // Url de votre formulaire de paiement
-public $successUrl = "http://localhost:3000/success"; // A modifier en production
-public $errorUrl = "http://localhost:3000/error";     // A modifier en production
+public $clientId = "";                                // Votre API client id
+public $clientSecret = "";                            // Votre API client secret
+public $organismSlug = "";                            // Slug de votre association
+public $baseUrl = "https://localhost:3000";           // A modifier en production
+public $returnUrl = "https://localhost:3000/return";  // A modifier en production
 ```
 
 # Déploiement
