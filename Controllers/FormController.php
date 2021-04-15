@@ -16,6 +16,8 @@ namespace Controllers
         public function get()
         {
             $model = new FormViewModel();
+            $model->id = rand();
+            $model->method = 1;
             return ['form', $model];
         }
 
@@ -25,6 +27,7 @@ namespace Controllers
         public function post()
         {
             $model = new FormViewModel();
+            $model->id = $_POST['id'];
             $model->firstname = $_POST['firstname'];
             $model->lastname = $_POST['lastname'];
             $model->isCompany = isset($_POST['iscompany']) == 1;
@@ -36,14 +39,17 @@ namespace Controllers
             $model->city = $_POST['city'];
             $model->country = $_POST['country'];
             $model->amount = $_POST['amount'];
-            
+            $model->method = $_POST['method'];
+
             // Call API
             $response = $this->helloassoApiWrapper->initCart($model);
 
-            if(isset($response->token)) {
-                // If success, redirect to HelloAsso
-                $url = $this->helloassoApiWrapper->getPaymentFormUrl($response->token);
-                header('Location:' . $url);
+            if(isset($response->redirectUrl)) {
+                // We can store checkout id somewhere
+                //$response->checkoutIntentId;
+
+                // then redirect to HelloAsso
+                header('Location:' . $response->redirectUrl);
                 exit();
             } else if (isset($response)) {
                 $model->error = $response->error;
@@ -54,14 +60,9 @@ namespace Controllers
             }
         }
 
-        public function success()
+        public function return()
         {
-            return ['success', null];
-        }
-
-        public function error()
-        {
-            return ['error', null];
+            return ['return', null];
         }
     }
 }

@@ -16,8 +16,7 @@
 
     $router->map('GET', '/', 'get');
     $router->map('POST', '/', 'post');
-    $router->map('GET', '/success', 'success');
-    $router->map('GET', '/error', 'error');
+    $router->map('GET', '/return', 'return');
 
     $match = $router->match();
     

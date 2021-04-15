@@ -4,6 +4,7 @@ namespace Models
 {
     class FormViewModel
     {
+        public $id;
         public $firstname;
         public $lastname;
         public $isCompany;
@@ -15,6 +16,7 @@ namespace Models
         public $city;
         public $country;
         public $amount;
+        public $method;
 
         public $error;
     }

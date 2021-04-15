@@ -4,10 +4,11 @@ class Config
 {
     private static $_instance;
 
-    public $partnerId = "";
-    public $formUrl = "";
-    public $successUrl = "http://localhost:3000/success";
-    public $errorUrl = "http://localhost:3000/error";
+    public $clientId = "";
+    public $clientSecret = "";
+    public $organismSlug = "";
+    public $baseUrl = "https://localhost:3000";
+    public $returnUrl = "https://localhost:3000/return";
 
     private function __construct()
     { }
